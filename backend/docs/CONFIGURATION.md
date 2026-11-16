@@ -1690,6 +1690,29 @@ Downloads are restricted to `/mnt/user-data` and all file paths reject
 traversal. Multi-process discovery and ownership coordination are not yet
 implemented, so `replicas` is a per-Gateway-process soft cap.
 
+**kosa8 Cloud Sandbox** (runs code in kosa8 Cloud microVMs over its REST API):
+
+```yaml
+sandbox:
+   use: deerflow.community.kosa8:Kosa8SandboxProvider
+   kosa8_api_key: $KOSA8_API_KEY      # or KOSA8_API_KEY in the Gateway environment
+   image: python:3.12                 # optional; a kosa8 template when omitted
+   size: 2x4                          # optional vCPU x GiB
+   ttl_s: 86400                       # kosa8 deletes the sandbox after this; 0 never
+   replicas: 3                        # active + warm cap per gateway process
+   idle_timeout: 600                  # warm seconds before delete; 0 disables
+```
+
+No extra package is needed. The credential keys carry a `kosa8_` prefix, so a
+key configured for another provider is never sent to kosa8. The provider creates
+a sandbox per effective user/thread scope, parks it in an in-process warm pool
+after each turn, and mirrors `/mnt/user-data/outputs` to the thread's local
+outputs directory before parking. Commands use kosa8's streamed exec with a
+per-call `timeout_s`; files under `/workspace` use kosa8's files API and other
+paths stream over exec. See the
+[provider README](../packages/harness/deerflow/community/kosa8/README.md) for
+every option and the limits it works around.
+
 Choose between local execution or Docker-based isolation:
 
 **Option 1: Local Sandbox** (default, simpler setup):

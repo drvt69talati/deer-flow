@@ -84,6 +84,11 @@ Outputs with case- or Unicode-equivalent file or directory names are skipped
 before copying, and aliases of existing local paths are rejected, preserving
 previous complete copies.
 
+The optional [kosa8 cloud sandbox provider](../../backend/packages/harness/deerflow/community/kosa8/README.md)
+needs no extra package. It mirrors output files to local thread storage on
+release under the same rules as OpenSandbox, and timed-out commands preserve
+partial output and report `Exit Code: 124`.
+
 The [sandbox benchmark](../../backend/scripts/benchmark/sandbox/README.md#opensandbox)
 also supports OpenSandbox cold acquisition, warm reuse and concurrent scopes,
 using the configured service connection and reporting unconfirmed cleanup as a

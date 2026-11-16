@@ -33,6 +33,7 @@ EXPECTED_GUIDANCE_PATHS = {
     "backend/packages/harness/deerflow/community/e2b_sandbox/AGENTS.md",
     "backend/packages/harness/deerflow/community/aio_sandbox/AGENTS.md",
     "backend/packages/harness/deerflow/community/boxlite/AGENTS.md",
+    "backend/packages/harness/deerflow/community/kosa8/AGENTS.md",
     "backend/packages/harness/deerflow/community/browser_automation/AGENTS.md",
     "backend/packages/harness/deerflow/community/opensandbox/AGENTS.md",
     "backend/packages/harness/deerflow/config/AGENTS.md",

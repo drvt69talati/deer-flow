@@ -1790,7 +1790,7 @@ sandbox:
   # `hard_timeout`; the frozen legacy `all-in-one-sandbox:latest` image only
   # gets the bounded host-side request. `bash_command_timeout` is used by
   # providers that expose a per-command timeout (LocalSandbox, AioSandbox,
-  # OpenSandbox, E2B, BoxLite, and Tenki). Providers without per-command timeout
+  # OpenSandbox, E2B, BoxLite, Tenki, and kosa8). Providers without per-command timeout
   # support retain their provider-specific command defaults. For providers
   # that enforce this deadline server- or process-side, blocking foreground
   # commands are terminated at the configured deadline. Long-lived processes
@@ -2018,6 +2018,24 @@ sandbox:
 #   # replicas: 3                     # active + warm cap per gateway process
 #   # idle_timeout: 600               # warm seconds before destroy; 0 disables
 #   # environment:                    # create-time and per-command defaults
+#   #   PYTHONUNBUFFERED: "1"
+
+# Option 7: kosa8 Cloud microVM Sandbox
+# Runs each sandbox as a kosa8 Cloud microVM through kosa8's REST API (no extra
+# package). Released sandboxes stay in an in-process warm pool, are reclaimed
+# only by the same user/thread, and have their outputs mirrored to the thread.
+# sandbox:
+#   use: deerflow.community.kosa8:Kosa8SandboxProvider
+#   # kosa8_api_key: $KOSA8_API_KEY   # or KOSA8_API_KEY in the Gateway environment
+#   # kosa8_base_url: https://api.kosa8.com  # or KOSA8_API_URL
+#   # image: python:3.12              # optional OCI image; kosa8 template when omitted
+#   # size: 2x4                       # vCPU x GiB: 2x4, 4x8, 8x16 or 16x32
+#   # region: us                      # us or eu; nearest when omitted
+#   # sleep_after_s: 300              # kosa8 sleeps an idle sandbox, memory kept; 0 never
+#   # ttl_s: 86400                    # kosa8 deletes the sandbox after this; 0 never
+#   # replicas: 3                     # active + warm cap per gateway process
+#   # idle_timeout: 600               # warm seconds before delete; 0 disables
+#   # environment:                    # set on the sandbox at create
 #   #   PYTHONUNBUFFERED: "1"
 
 # ============================================================================

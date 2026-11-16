@@ -231,6 +231,13 @@ class SandboxConfig(BaseModel):
         ready_timeout: Create/readiness deadline in seconds (default: 30).
         sandbox_timeout: Remote lifetime in seconds (default: 14400); 0 requires
             explicit provider cleanup.
+
+    Kosa8SandboxProvider specific options:
+        kosa8_api_key, kosa8_base_url: kosa8 API credentials and endpoint
+            (KOSA8_API_KEY / KOSA8_API_URL fallbacks). Prefixed so a generic
+            api_key set for another provider is never sent to kosa8.
+        template, size, region, persistent, sleep_after_s, ttl_s, ready_timeout,
+            root_dir: kosa8 sandbox settings; see the provider README.
     """
 
     use: str = Field(
